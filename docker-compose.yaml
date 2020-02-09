@@ -1,0 +1,16 @@
+version: "3"
+services: 
+    service-a:
+        image: service-a
+        container_name: service-a
+        ports: 
+            - 9080:9080
+            - 9443:9443
+    service-b:
+        image: service-b
+        container_name: service-b
+        ports: 
+            - 9081:9081
+            - 9444:9444
+        depends_on: 
+            - service-a
