@@ -1,18 +1,32 @@
 package com.example.demo;
 
-import javax.inject.Singleton;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import javax.transaction.Transactional;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.core.MediaType;
 
 /**
  *
  */
+@RequestScoped
 @Path("/hello")
-@Singleton
+@Consumes(MediaType.APPLICATION_JSON)
 public class HelloController {
 
+    @Inject
+    PostRepository repo;
+
     @GET
+    @Transactional
     public String sayHello() {
-        return "Hello World";
+
+        Post post = new Post();
+        post.setAuthor("Author Hieu Lam");
+        repo.create(post);
+
+        return "Insert success";
     }
 }
